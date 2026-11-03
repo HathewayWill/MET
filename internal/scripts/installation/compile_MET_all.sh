@@ -509,7 +509,8 @@ if [ $COMPILE_PROJ -eq 1 ]; then
 
   
   #cmd="cmake -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DSQLITE3_INCLUDE_DIR=${SQLITE_INCLUDE_DIR} -DSQLITE3_LIBRARY=${SQLITE_LIB_DIR}/libsqlite3.${dynamic_lib_ext} ${tiff_arg} .. > $(pwd)/proj.cmake.log 2>&1"
-  cmd="cmake -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DCMAKE_CXX_FLAGS='-include cstdint' -DSQLITE3_INCLUDE_DIR=${SQLITE_INCLUDE_DIR} -DSQLITE3_LIBRARY=${SQLITE_LIB_DIR}/libsqlite3.${dynamic_lib_ext} ${tiff_arg} .. > $(pwd)/proj.cmake.log 2>&1"
+  #cmd="cmake -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DCMAKE_CXX_FLAGS='-include cstdint' -DSQLITE3_INCLUDE_DIR=${SQLITE_INCLUDE_DIR} -DSQLITE3_LIBRARY=${SQLITE_LIB_DIR}/libsqlite3.${dynamic_lib_ext} ${tiff_arg} .. > $(pwd)/proj.cmake.log 2>&1"
+  cmd="cmake -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_TESTING=OFF -DCMAKE_CXX_FLAGS='-include cstdint' -DSQLITE3_INCLUDE_DIR=${SQLITE_INCLUDE_DIR} -DSQLITE3_LIBRARY=${SQLITE_LIB_DIR}/libsqlite3.${dynamic_lib_ext} ${tiff_arg} .. > $(pwd)/proj.cmake.log 2>&1"
   run_cmd ${cmd}
   run_cmd "cmake --build . > $(pwd)/proj.cmake_build.log 2>&1"
   run_cmd "cmake --build . --target install > $(pwd)/proj.cmake_install.log 2>&1"
@@ -612,7 +613,9 @@ if [ $COMPILE_JASPER -eq 1 ]; then
   run_cmd_no_exit "cmake -G \"Unix Makefiles\" -H${SOURCE_DIR} -B${BUILD_DIR} -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DJAS_ENABLE_DOC=false > $(pwd)/jasper.cmake.log 2>&1; cd ${BUILD_DIR}; make clean all > $(pwd)/jasper.make.log 2>&1"
   status=$?
   if [ "$status" -ne 0 ]; then
-    run_cmd "cmake -G \"Unix Makefiles\" -H${SOURCE_DIR} -B${BUILD_DIR} -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DJAS_ENABLE_DOC=false -DCMAKE_EXE_LINKER_FLAGS=\"-lglut\" > $(pwd)/jasper.cmake.log 2>&1" 
+    #run_cmd "cmake -G \"Unix Makefiles\" -H${SOURCE_DIR} -B${BUILD_DIR} -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DJAS_ENABLE_DOC=false -DCMAKE_EXE_LINKER_FLAGS=\"-lglut\" > $(pwd)/jasper.cmake.log 2>&1"
+    run_cmd "cmake -G 'Unix Makefiles' -S '${SOURCE_DIR}' -B '${BUILD_DIR}' -DCMAKE_INSTALL_PREFIX='${LIB_DIR}' -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DJAS_ENABLE_DOC=false -DCMAKE_EXE_LINKER_FLAGS='-lglut' > '${SOURCE_DIR}/jasper.cmake.log' 2>&1"
+ 
     run_cmd "cd ${BUILD_DIR}"
     run_cmd "make clean all > $(pwd)/jasper.make.log 2>&1" 
   fi
