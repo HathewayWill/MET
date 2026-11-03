@@ -509,9 +509,8 @@ if [ $COMPILE_PROJ -eq 1 ]; then
 
   
   #cmd="cmake -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DSQLITE3_INCLUDE_DIR=${SQLITE_INCLUDE_DIR} -DSQLITE3_LIBRARY=${SQLITE_LIB_DIR}/libsqlite3.${dynamic_lib_ext} ${tiff_arg} .. > $(pwd)/proj.cmake.log 2>&1"
-  #cmd="cmake -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DCMAKE_CXX_FLAGS='-include cstdint' -DSQLITE3_INCLUDE_DIR=${SQLITE_INCLUDE_DIR} -DSQLITE3_LIBRARY=${SQLITE_LIB_DIR}/libsqlite3.${dynamic_lib_ext} ${tiff_arg} .. > $(pwd)/proj.cmake.log 2>&1"
-  cmd="cmake -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_TESTING=OFF -DCMAKE_CXX_FLAGS='-include cstdint' -DSQLITE3_INCLUDE_DIR=${SQLITE_INCLUDE_DIR} -DSQLITE3_LIBRARY=${SQLITE_LIB_DIR}/libsqlite3.${dynamic_lib_ext} ${tiff_arg} .. > $(pwd)/proj.cmake.log 2>&1"
-  run_cmd "${cmd}"
+  cmd="cmake -DCMAKE_INSTALL_PREFIX=${LIB_DIR} -DCMAKE_CXX_FLAGS='-include cstdint' -DSQLITE3_INCLUDE_DIR=${SQLITE_INCLUDE_DIR} -DSQLITE3_LIBRARY=${SQLITE_LIB_DIR}/libsqlite3.${dynamic_lib_ext} ${tiff_arg} .. > $(pwd)/proj.cmake.log 2>&1"
+  run_cmd ${cmd}
   run_cmd "cmake --build . > $(pwd)/proj.cmake_build.log 2>&1"
   run_cmd "cmake --build . --target install > $(pwd)/proj.cmake_install.log 2>&1"
 
